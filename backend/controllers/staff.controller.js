@@ -1,20 +1,47 @@
-const orderService = require("../services/order.service");
+const {
+  getActiveOrders,
+  getOrderById,
+  updateOrderStatus,
+  collectOrder,
+} = require("../services/dynamodb.service");
 
-function getStaffOrders(req, res) {
+async function getStaffOrders(req, res) {
   try {
-    const orders = orderService.getActiveOrders();
+    const orders = await getActiveOrders();
 
     res.status(200).json(orders);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching staff orders:", error);
 
     res.status(500).json({
-      message: "Failed to fetch orders",
+      message: "Failed to fetch staff orders",
     });
   }
 }
 
-function updateOrderStatus(req, res) {
+async function getStaffOrder(req, res) {
+  try {
+    const { orderId } = req.params;
+
+    const order = await getOrderById(orderId);
+
+    if (!order) {
+      return res.status(404).json({
+        message: "Order not found",
+      });
+    }
+
+    res.status(200).json(order);
+  } catch (error) {
+    console.error("Error fetching order:", error);
+
+    res.status(500).json({
+      message: "Failed to fetch order",
+    });
+  }
+}
+
+async function changeOrderStatus(req, res) {
   try {
     const { orderId } = req.params;
     const { status } = req.body;
@@ -26,14 +53,11 @@ function updateOrderStatus(req, res) {
     }
 
     const updatedOrder =
-      orderService.updateOrderStatus(
-        orderId,
-        status
-      );
+      await updateOrderStatus(orderId, status);
 
     res.status(200).json(updatedOrder);
   } catch (error) {
-    console.error(error);
+    console.error("Error updating order:", error);
 
     const statusCode =
       error.message === "Order not found"
@@ -46,16 +70,16 @@ function updateOrderStatus(req, res) {
   }
 }
 
-function collectOrder(req, res) {
+async function markOrderCollected(req, res) {
   try {
     const { orderId } = req.params;
 
     const updatedOrder =
-      orderService.collectOrder(orderId);
+      await collectOrder(orderId);
 
     res.status(200).json(updatedOrder);
   } catch (error) {
-    console.error(error);
+    console.error("Error collecting order:", error);
 
     const statusCode =
       error.message === "Order not found"
@@ -70,6 +94,7 @@ function collectOrder(req, res) {
 
 module.exports = {
   getStaffOrders,
-  updateOrderStatus,
-  collectOrder,
+  getStaffOrder,
+  changeOrderStatus,
+  markOrderCollected,
 };

@@ -1,45 +1,32 @@
 const express = require("express");
 
-const staffController = require(
-  "../controllers/staff.controller"
-);
+const {
+  getStaffOrders,
+  getStaffOrder,
+  changeOrderStatus,
+  markOrderCollected,
+} = require("../controllers/staff.controller");
 
 const router = express.Router();
 
-/*
-GET /staff/orders
-
-Returns:
-ORDERED
-PREPARING
-READY
-*/
 router.get(
   "/orders",
-  staffController.getStaffOrders
+  getStaffOrders
 );
 
-/*
-PATCH /staff/orders/:orderId/status
+router.get(
+  "/orders/:orderId",
+  getStaffOrder
+);
 
-Example:
-{
-  "status": "PREPARING"
-}
-*/
 router.patch(
   "/orders/:orderId/status",
-  staffController.updateOrderStatus
+  changeOrderStatus
 );
 
-/*
-PATCH /staff/orders/:orderId/collect
-
-READY → COLLECTED
-*/
 router.patch(
   "/orders/:orderId/collect",
-  staffController.collectOrder
+  markOrderCollected
 );
 
 module.exports = router;
