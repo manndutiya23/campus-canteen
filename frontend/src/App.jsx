@@ -1,20 +1,23 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Menu from "./pages/Menu";
 import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
-import { useEffect, useState } from "react";
+import StaffDashboard from "./pages/StaffDashboard";
+import OrderStatusPage from "./pages/OrderStatusPage";
 
 function App() {
-  const [path, setPath] = useState(window.location.pathname);
-
-  useEffect(() => {
-    const handleNavigation = () => setPath(window.location.pathname);
-    window.addEventListener("popstate", handleNavigation);
-    return () => window.removeEventListener("popstate", handleNavigation);
-  }, []);
-
-  if (path === "/cart") return <Cart />;
-  if (path === "/payment") return <Payment />;
-  return <Menu />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Menu />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/order/:orderId" element={<OrderStatusPage />} />
+        <Route path="/staff" element={<StaffDashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

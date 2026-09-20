@@ -4,6 +4,9 @@ const cors = require("cors");
 const staffRoutes = require(
   "./routes/staff.routes"
 );
+const ordersRoutes = require(
+  "./routes/orders.routes"
+);
 
 const app = express();
 
@@ -17,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/staff", staffRoutes);
+app.use("/orders", ordersRoutes);
 
 app.use((req, res) => {
   res.status(404).json({

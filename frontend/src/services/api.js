@@ -1,17 +1,43 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export async function getMenu() {
-  console.log("API URL:", API_BASE_URL);
-
   const response = await fetch(`${API_BASE_URL}/menu`);
-
-  console.log("API response:", response.status);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch menu: ${response.status}`);
   }
 
   return response.json();
+}
+
+export async function createOrder(orderData) {
+  const response = await fetch(`${API_BASE_URL}/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(orderData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to create order");
+  }
+
+  return data;
+}
+
+export async function getOrder(orderId) {
+  const response = await fetch(`${API_BASE_URL}/orders/${orderId}`);
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to fetch order");
+  }
+
+  return data;
 }
 
 export async function getStaffOrders() {
