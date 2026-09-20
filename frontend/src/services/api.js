@@ -1,10 +1,14 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export async function getMenu() {
+  console.log("API URL:", API_BASE_URL);
+
   const response = await fetch(`${API_BASE_URL}/menu`);
 
+  console.log("API response:", response.status);
+
   if (!response.ok) {
-    throw new Error("Failed to fetch menu");
+    throw new Error(`Failed to fetch menu: ${response.status}`);
   }
 
   return response.json();
