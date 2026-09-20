@@ -1,0 +1,80 @@
+[
+  {
+    "orderId": "ORD-00142",
+    "student": {
+      "name": "Mann",
+      "identifier": "STU001"
+    },
+    "items": [
+      {
+        "itemId": "ITEM001",
+        "name": "Masala Dosa",
+        "quantity": 1,
+        "price": 60
+      },
+      {
+        "itemId": "ITEM002",
+        "name": "Coffee",
+        "quantity": 1,
+        "price": 15
+      }
+    ],
+    "totalAmount": 75,
+    "payment": {
+      "method": "UPI",
+      "status": "SUCCESS"
+    },
+    "status": "ORDERED",
+    "pickupCode": "7392",
+    "createdAt": "2026-09-20T12:15:00Z",
+    "updatedAt": "2026-09-20T12:15:00Z"
+  },
+  {
+    "orderId": "ORD-00143",
+    "student": {
+      "name": "Rahul",
+      "identifier": "STU002"
+    },
+    "items": [
+      {
+        "itemId": "ITEM003",
+        "name": "Sandwich",
+        "quantity": 1,
+        "price": 50
+      }
+    ],
+    "totalAmount": 50,
+    "payment": {
+      "method": "UPI",
+      "status": "SUCCESS"
+    },
+    "status": "PREPARING",
+    "pickupCode": "4821",
+    "createdAt": "2026-09-20T12:18:00Z",
+    "updatedAt": "2026-09-20T12:20:00Z"
+  },
+  {
+    "orderId": "ORD-00144",
+    "student": {
+      "name": "Priya",
+      "identifier": "STU003"
+    },
+    "items": [
+      {
+        "itemId": "ITEM004",
+        "name": "Vada Pav",
+        "quantity": 2,
+        "price": 20
+      }
+    ],
+    "totalAmount": 40,
+    "payment": {
+      "method": "UPI",
+      "status": "SUCCESS"
+    },
+    "status": "READY",
+    "pickupCode": "6158",
+    "createdAt": "2026-09-20T12:20:00Z",
+    "updatedAt": "2026-09-20T12:23:00Z"
+  }
+]
